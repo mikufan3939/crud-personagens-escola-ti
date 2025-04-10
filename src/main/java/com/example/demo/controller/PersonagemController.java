@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/personagens")
@@ -35,7 +36,12 @@ public class PersonagemController {
 
     @GetMapping("/{id}")
     public Personagem buscarPersonagemPorId(@PathVariable int id){
-        return personagemService.buscarPersonagemPorId(id);
+        try{
+            return personagemService.buscarPersonagemPorId(id);
+        }
+        catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nao encontrado!");
+        }
     }
 
     @PatchMapping("/{id}")

@@ -31,7 +31,8 @@ public class PersonagemService {
     }
 
     public Personagem buscarPersonagemPorId(int id){
-        return personagemRepository.findById(id).orElseThrow().somarAtributosItens();
+        Personagem personagemSelecionado=personagemRepository.findById(id).orElseThrow();
+        return personagemSelecionado.somarAtributosItens();
     }
 
     public Personagem atualizarNomeAventureiro(int id, String novoNome){
@@ -45,13 +46,14 @@ public class PersonagemService {
     }
 
     public Personagem adicionarItemMagico(int id, int idItemMagico) throws Exceptions.PersonagemJaTemAmuletoException{
-        Personagem personagemSelecionado=buscarPersonagemPorId(id);
+        Personagem personagemSelecionado=personagemRepository.findById(id).orElseThrow();
         ItemMagico itemMagico=itemMagicoService.buscarItemMagicoPorId(idItemMagico);
 
         if(itemMagico.getTipoItem()==TipoItem.AMULETO && personagemSelecionado.temAmuleto()){
             throw new Exceptions.PersonagemJaTemAmuletoException();
         }
         personagemSelecionado.getItemMagicoList().add(itemMagico);
+        System.out.println(personagemSelecionado.toString());
         return personagemRepository.save(personagemSelecionado);
     }
 
@@ -62,11 +64,13 @@ public class PersonagemService {
 
     public Personagem removerItemMagico(int id, int idItemMagico){
         int index=0;
-        Personagem personagemSelecionado=buscarPersonagemPorId(id);
+        Personagem personagemSelecionado=personagemRepository.findById(id).orElseThrow();
         for(ItemMagico itemMagico : personagemSelecionado.getItemMagicoList()){
             if(itemMagico.getId()==idItemMagico){
+                    //personagemSelecionado.removerAtributosItens();
                     personagemSelecionado.getItemMagicoList().remove(index);
-                    personagemSelecionado.removerAtributosItens();
+
+                    System.out.println(personagemSelecionado.toString());
                     return personagemRepository.save(personagemSelecionado);
             }
             index++;
@@ -75,8 +79,8 @@ public class PersonagemService {
     }
 
     public ItemMagico buscarAmuleto(int id){
-        Personagem personagem=buscarPersonagemPorId(id);
-        for(ItemMagico itemMagico : personagem.getItemMagicoList()){
+        Personagem personagemSelecionado=personagemRepository.findById(id).orElseThrow();
+        for(ItemMagico itemMagico : personagemSelecionado.getItemMagicoList()){
             if(itemMagico.getTipoItem()== TipoItem.AMULETO){
                 return itemMagico;
             }

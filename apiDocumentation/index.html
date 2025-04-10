@@ -1,0 +1,1050 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Crud Personagens Escola TI</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Crud Personagens Escola TI</h1>
+    <div class="app-desc">Documentação da API de CRUD de personagens para prova prática da matéria de Escola de TI.</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#ItensMgicos">ItensMgicos</a></h4>
+  <ul>
+  <li><a href="#buscarItemMagicoPorId"><code><span class="http-method">get</span> /itensMagicos/{id}</code></a></li>
+  <li><a href="#cadastrarItemMagico"><code><span class="http-method">post</span> /itensMagicos</code></a></li>
+  <li><a href="#listarItensMagicos"><code><span class="http-method">get</span> /itensMagicos</code></a></li>
+  </ul>
+  <h4><a href="#Personagens">Personagens</a></h4>
+  <ul>
+  <li><a href="#adicionarItemMagico"><code><span class="http-method">patch</span> /personagens/{id}/adicionarItemMagico/{idItemMagico}</code></a></li>
+  <li><a href="#atualizarNomeAventureiro"><code><span class="http-method">patch</span> /personagens/{id}</code></a></li>
+  <li><a href="#buscarAmuleto"><code><span class="http-method">get</span> /personagens/{id}/buscarAmuleto</code></a></li>
+  <li><a href="#buscarPersonagemPorId"><code><span class="http-method">get</span> /personagens/{id}</code></a></li>
+  <li><a href="#criarPersonagem"><code><span class="http-method">post</span> /personagens</code></a></li>
+  <li><a href="#listarItensMagicosPersonagem"><code><span class="http-method">get</span> /personagens/{id}/listarItensMagicos</code></a></li>
+  <li><a href="#listarPersonagens"><code><span class="http-method">get</span> /personagens</code></a></li>
+  <li><a href="#removerItemMagico"><code><span class="http-method">patch</span> /personagens/{id}/deletarItemMagico/{idItemMagico}</code></a></li>
+  <li><a href="#removerPersonagem"><code><span class="http-method">delete</span> /personagens/{id}</code></a></li>
+  </ul>
+
+  <h1><a name="ItensMgicos">ItensMgicos</a></h1>
+  <div class="method"><a name="buscarItemMagicoPorId"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /itensMagicos/{id}</code></pre></div>
+    <div class="method-summary">Buscar Item Mágico por Identificador (<span class="nickname">buscarItemMagicoPorId</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ItemMagico">ItemMagico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "tipoItem" : "",
+  "forca" : "",
+  "nome" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ItemMagico">ItemMagico</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Arma</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 2,
+    &quot;nome&quot;: &quot;Faca Ak47&quot;,
+    &quot;tipoItem&quot;: &quot;ARMA&quot;,
+    &quot;forca&quot;: 10,
+    &quot;defesa&quot;: 0
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Item não encontrado.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="cadastrarItemMagico"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /itensMagicos</code></pre></div>
+    <div class="method-summary">Cadastrar Item Mágico (<span class="nickname">cadastrarItemMagico</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ItemMagico">ItemMagico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "tipoItem" : "",
+  "forca" : "",
+  "nome" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ItemMagico">ItemMagico</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Armadura</div>
+    <pre class="example"><code>{
+  &quot;id&quot;:1
+  &quot;nome&quot;: &quot;Quimiotanque Turbo&quot;,
+  &quot;tipoItem&quot;: &quot;ARMADURA&quot;,
+  &quot;forca&quot;: 0,
+  &quot;defesa&quot;: 8
+}</code></pre>
+    <h4 class="field-label">400</h4>
+    Atributos maiores do que os valores permitidos.
+        <a href="#ItemMagico">ItemMagico</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Soma de Atributos maior que 10</div>
+    <pre class="example"><code>{
+  &quot;nome&quot;: &quot;AMULETO FODA&quot;,
+  &quot;tipoItem&quot;: &quot;AMULETO&quot;,
+  &quot;forca&quot;: 99,
+  &quot;defesa&quot;: 99
+}</code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="listarItensMagicos"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /itensMagicos</code></pre></div>
+    <div class="method-summary">Listar Itens Mágicos (<span class="nickname">listarItensMagicos</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Lista de itens</div>
+    <pre class="example"><code>[
+    {
+        &quot;id&quot;: 1,
+        &quot;nome&quot;: &quot;AMULETO FODA&quot;,
+        &quot;tipoItem&quot;: &quot;AMULETO&quot;,
+        &quot;forca&quot;: 5,
+        &quot;defesa&quot;: 5
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nome&quot;: &quot;Faca Ak47&quot;,
+        &quot;tipoItem&quot;: &quot;ARMA&quot;,
+        &quot;forca&quot;: 10,
+        &quot;defesa&quot;: 0
+    }
+]</code></pre>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Arma</div>
+    <pre class="example"><code>{
+  &quot;id&quot;:2
+  &quot;nome&quot;: &quot;Faca Ak47&quot;,
+  &quot;tipoItem&quot;: &quot;Arma&quot;,
+  &quot;forca&quot;: 10,
+  &quot;defesa&quot;: 0
+}</code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Personagens">Personagens</a></h1>
+  <div class="method"><a name="adicionarItemMagico"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /personagens/{id}/adicionarItemMagico/{idItemMagico}</code></pre></div>
+    <div class="method-summary">Adicionar Item Mágico ao Personagem (<span class="nickname">adicionarItemMagico</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>      <div class="param">idItemMagico (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Personagem">Personagem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "classe" : "",
+  "nomeAventureiro" : "",
+  "level" : "",
+  "forca" : "",
+  "nome" : "",
+  "itemMagicoList" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Adicionar item</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 1,
+    &quot;nome&quot;: &quot;Lucca&quot;,
+    &quot;nomeAventureiro&quot;: &quot;NomeAlterado&quot;,
+    &quot;classe&quot;: &quot;BARDO&quot;,
+    &quot;level&quot;: 99,
+    &quot;itemMagicoList&quot;: [
+        {
+            &quot;id&quot;: 4,
+            &quot;nome&quot;: &quot;Gume do Infinito&quot;,
+            &quot;tipoItem&quot;: &quot;ARMA&quot;,
+            &quot;forca&quot;: 10,
+            &quot;defesa&quot;: 0
+        }
+    ],
+    &quot;forca&quot;: 5,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem ou Item não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="atualizarNomeAventureiro"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /personagens/{id}</code></pre></div>
+    <div class="method-summary">Atualizar Nome de Guerreiro por Identificador (<span class="nickname">atualizarNomeAventureiro</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Personagem">Personagem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "classe" : "",
+  "nomeAventureiro" : "",
+  "level" : "",
+  "forca" : "",
+  "nome" : "",
+  "itemMagicoList" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Alterar nome</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 1,
+    &quot;nome&quot;: &quot;Lucca&quot;,
+    &quot;nomeAventureiro&quot;: &quot;NomeAlterado&quot;,
+    &quot;classe&quot;: &quot;BARDO&quot;,
+    &quot;level&quot;: 99,
+    &quot;itemMagicoList&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nome&quot;: &quot;Faca Ak47&quot;,
+            &quot;tipoItem&quot;: &quot;ARMA&quot;,
+            &quot;forca&quot;: 10,
+            &quot;defesa&quot;: 0
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nome&quot;: &quot;Espada de Fogo&quot;,
+            &quot;tipoItem&quot;: &quot;ARMA&quot;,
+            &quot;forca&quot;: 10,
+            &quot;defesa&quot;: 0
+        }
+    ],
+    &quot;forca&quot;: 5,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="buscarAmuleto"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /personagens/{id}/buscarAmuleto</code></pre></div>
+    <div class="method-summary">Buscar Amuleto do Personagem (<span class="nickname">buscarAmuleto</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ItemMagico">ItemMagico</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "tipoItem" : "",
+  "forca" : "",
+  "nome" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ItemMagico">ItemMagico</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Amuleto</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 3,
+    &quot;nome&quot;: &quot;AMULETO FODA&quot;,
+    &quot;tipoItem&quot;: &quot;AMULETO&quot;,
+    &quot;forca&quot;: 5,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="buscarPersonagemPorId"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /personagens/{id}</code></pre></div>
+    <div class="method-summary">Buscar Personagem por Identificador (<span class="nickname">buscarPersonagemPorId</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Personagem">Personagem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "classe" : "",
+  "nomeAventureiro" : "",
+  "level" : "",
+  "forca" : "",
+  "nome" : "",
+  "itemMagicoList" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Personagem</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 1,
+    &quot;nome&quot;: &quot;Lucca&quot;,
+    &quot;nomeAventureiro&quot;: &quot;Lucccaaa&quot;,
+    &quot;classe&quot;: &quot;BARDO&quot;,
+    &quot;level&quot;: 99,
+    &quot;itemMagicoList&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;nome&quot;: &quot;Faca Ak47&quot;,
+            &quot;tipoItem&quot;: &quot;ARMA&quot;,
+            &quot;forca&quot;: 10,
+            &quot;defesa&quot;: 0
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;nome&quot;: &quot;Espada de Fogo&quot;,
+            &quot;tipoItem&quot;: &quot;ARMA&quot;,
+            &quot;forca&quot;: 10,
+            &quot;defesa&quot;: 0
+        }
+    ],
+    &quot;forca&quot;: 25,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="criarPersonagem"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /personagens</code></pre></div>
+    <div class="method-summary">Cadastrar Personagem (<span class="nickname">criarPersonagem</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Personagem">Personagem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "classe" : "",
+  "nomeAventureiro" : "",
+  "level" : "",
+  "forca" : "",
+  "nome" : "",
+  "itemMagicoList" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Personagem</div>
+    <pre class="example"><code>{
+    &quot;id&quot;:1
+    &quot;nome&quot;: &quot;Lucca&quot;,
+    &quot;nomeAventureiro&quot;: &quot;Lucccaaa&quot;,
+    &quot;classe&quot;: &quot;BARDO&quot;,
+    &quot;level&quot;: 99,
+    &quot;itemMagicoList&quot;: null,
+    &quot;forca&quot;: 5,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">400</h4>
+    Atributos maiores do que os valores permitidos.
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Personagem com atributos demais</div>
+    <pre class="example"><code>{
+  &quot;id&quot;:2
+  &quot;nome&quot;: &quot;Lucca&quot;,
+  &quot;nomeAventureiro&quot;: &quot;Kirito&quot;,
+  &quot;classe&quot;: &quot;BARDO&quot;,
+  &quot;level&quot;: 99,
+  &quot;forca&quot;: 99,
+  &quot;defesa&quot;: 99
+}</code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="listarItensMagicosPersonagem"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /personagens/{id}/listarItensMagicos</code></pre></div>
+    <div class="method-summary">Listar Itens Mágicos por Personagem (<span class="nickname">listarItensMagicosPersonagem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Listar itens</div>
+    <pre class="example"><code>[
+    {
+        &quot;id&quot;: 1,
+        &quot;nome&quot;: &quot;Faca Ak47&quot;,
+        &quot;tipoItem&quot;: &quot;ARMA&quot;,
+        &quot;forca&quot;: 10,
+        &quot;defesa&quot;: 0
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nome&quot;: &quot;Espada de Fogo&quot;,
+        &quot;tipoItem&quot;: &quot;ARMA&quot;,
+        &quot;forca&quot;: 10,
+        &quot;defesa&quot;: 0
+    }
+]</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="listarPersonagens"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /personagens</code></pre></div>
+    <div class="method-summary">Listar Personagens (<span class="nickname">listarPersonagens</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>""</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Lista de Personagens</div>
+    <pre class="example"><code>[
+    {
+        &quot;id&quot;: 1,
+        &quot;nome&quot;: &quot;Lucca&quot;,
+        &quot;nomeAventureiro&quot;: &quot;Lucccaaa&quot;,
+        &quot;classe&quot;: &quot;BARDO&quot;,
+        &quot;level&quot;: 99,
+        &quot;itemMagicoList&quot;: [
+            {
+                &quot;id&quot;: 1,
+                &quot;nome&quot;: &quot;Faca Ak47&quot;,
+                &quot;tipoItem&quot;: &quot;ARMA&quot;,
+                &quot;forca&quot;: 10,
+                &quot;defesa&quot;: 0
+            },
+            {
+                &quot;id&quot;: 2,
+                &quot;nome&quot;: &quot;Espada de Fogo&quot;,
+                &quot;tipoItem&quot;: &quot;ARMA&quot;,
+                &quot;forca&quot;: 10,
+                &quot;defesa&quot;: 0
+            }
+        ],
+        &quot;forca&quot;: 25,
+        &quot;defesa&quot;: 5
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;nome&quot;: &quot;Lucca&quot;,
+        &quot;nomeAventureiro&quot;: &quot;Kirito&quot;,
+        &quot;classe&quot;: &quot;GUERREIRO&quot;,
+        &quot;level&quot;: 99,
+        &quot;itemMagicoList&quot;: [
+            {
+                &quot;id&quot;: 3,
+                &quot;nome&quot;: &quot;AMULETO FODA&quot;,
+                &quot;tipoItem&quot;: &quot;AMULETO&quot;,
+                &quot;forca&quot;: 5,
+                &quot;defesa&quot;: 5
+            }
+        ],
+        &quot;forca&quot;: 10,
+        &quot;defesa&quot;: 10
+    }
+]</code></pre>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="removerItemMagico"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="patch"><code class="huge"><span class="http-method">patch</span> /personagens/{id}/deletarItemMagico/{idItemMagico}</code></pre></div>
+    <div class="method-summary">Remover Item Mágico do Personagem (<span class="nickname">removerItemMagico</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>      <div class="param">idItemMagico (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Personagem">Personagem</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "classe" : "",
+  "nomeAventureiro" : "",
+  "level" : "",
+  "forca" : "",
+  "nome" : "",
+  "itemMagicoList" : "",
+  "id" : "",
+  "defesa" : ""
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>*/*</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Personagem">Personagem</a>
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: Remover Item</div>
+    <pre class="example"><code>{
+    &quot;id&quot;: 1,
+    &quot;nome&quot;: &quot;Lucca&quot;,
+    &quot;nomeAventureiro&quot;: &quot;NomeAlterado&quot;,
+    &quot;classe&quot;: &quot;BARDO&quot;,
+    &quot;level&quot;: 99,
+    &quot;itemMagicoList&quot;: [],
+    &quot;forca&quot;: 5,
+    &quot;defesa&quot;: 5
+}</code></pre>
+    <h4 class="field-label">404</h4>
+    Personagem ou Item não encontrado
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="removerPersonagem"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /personagens/{id}</code></pre></div>
+    <div class="method-summary">Remover Personagem (<span class="nickname">removerPersonagem</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  format: int32</div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#ItemMagico"><code>ItemMagico</code></a></li>
+    <li><a href="#Personagem"><code>Personagem</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="ItemMagico"><code>ItemMagico</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+<div class="param">nome (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">tipoItem (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">forca (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+<div class="param">defesa (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Personagem"><code>Personagem</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+<div class="param">nome (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">nomeAventureiro (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">classe (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">level (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+<div class="param">itemMagicoList (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+<div class="param">forca (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+<div class="param">defesa (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

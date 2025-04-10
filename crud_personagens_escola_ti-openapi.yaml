@@ -1,0 +1,277 @@
+openapi: "3.1.0"
+info:
+  title: "crud_personagens_escola_ti API"
+  description: "crud_personagens_escola_ti API"
+  version: "1.0.0"
+servers:
+  - url: "https://crud_personagens_escola_ti"
+paths:
+  /itensMagicos/:
+    get:
+      summary: "GET itensMagicos/"
+      operationId: "listarItensMagicos"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/ItemMagico"
+    post:
+      summary: "POST itensMagicos/"
+      operationId: "cadastrarItemMagico"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ItemMagico"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemMagico"
+  /itensMagicos/{id}:
+    get:
+      summary: "GET itensMagicos/{id}"
+      operationId: "buscarItemMagicoPorId"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemMagico"
+  /personagens/:
+    get:
+      summary: "GET personagens/"
+      operationId: "listarPersonagens"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Personagem"
+    post:
+      summary: "POST personagens/"
+      operationId: "criarPersonagem"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Personagem"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Personagem"
+  /personagens/{id}:
+    get:
+      summary: "GET personagens/{id}"
+      operationId: "buscarPersonagemPorId"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Personagem"
+    patch:
+      summary: "PATCH personagens/{id}"
+      operationId: "atualizarNomeAventureiro"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "string"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Personagem"
+    delete:
+      summary: "DELETE personagens/{id}"
+      operationId: "removerPersonagem"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+  /personagens/{id}/adicionarItemMagico/{idItemMagico}:
+    patch:
+      summary: "PATCH personagens/{id}/adicionarItemMagico/{idItemMagico}"
+      operationId: "adicionarItemMagico"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "idItemMagico"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Personagem"
+  /personagens/{id}/buscarAmuleto:
+    get:
+      summary: "GET personagens/{id}/buscarAmuleto"
+      operationId: "buscarAmuleto"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ItemMagico"
+  /personagens/{id}/deletarItemMagico/{idItemMagico}:
+    patch:
+      summary: "PATCH personagens/{id}/deletarItemMagico/{idItemMagico}"
+      operationId: "removerItemMagico"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+        - name: "idItemMagico"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Personagem"
+  /personagens/{id}/listarItensMagicos:
+    get:
+      summary: "GET personagens/{id}/listarItensMagicos"
+      operationId: "listarItensMagicos"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int32"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/ItemMagico"
+components:
+  schemas:
+    ItemMagico:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int32"
+        nome:
+          type: "string"
+        tipoItem:
+          type: "string"
+          enum:
+            - "ARMA"
+            - "ARMADURA"
+            - "AMULETO"
+        forca:
+          type: "integer"
+          format: "int32"
+        defesa:
+          type: "integer"
+          format: "int32"
+    Personagem:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int32"
+        nome:
+          type: "string"
+        nomeAventureiro:
+          type: "string"
+        classe:
+          type: "string"
+          enum:
+            - "GUERREIRO"
+            - "MAGO"
+            - "ARQUEIRO"
+            - "LADINO"
+            - "BARDO"
+        level:
+          type: "integer"
+          format: "int32"
+        itemMagicoList:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/ItemMagico"
+        forca:
+          type: "integer"
+          format: "int32"
+        defesa:
+          type: "integer"
+          format: "int32"

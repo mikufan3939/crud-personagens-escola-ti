@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/itensMagicos")
@@ -36,6 +37,11 @@ public class ItemMagicoController {
 
     @GetMapping("/{id}")
     public ItemMagico buscarItemMagicoPorId(@PathVariable int id){
-        return itemMagicoService.buscarItemMagicoPorId(id);
+        try{
+            return itemMagicoService.buscarItemMagicoPorId(id);
+        }
+        catch(NoSuchElementException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nao encontrado!");
+        }
     }
 }
