@@ -17,9 +17,6 @@ public class ItemMagico {
 
     private int defesa;
 
-    @ManyToOne
-    @JoinColumn(name = "personagem_id")
-    private Personagem personagem;
 
     public int getId() {
         return id;

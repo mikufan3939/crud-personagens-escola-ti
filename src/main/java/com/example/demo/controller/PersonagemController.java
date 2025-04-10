@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.Exceptions;
 import com.example.demo.model.ItemMagico;
 import com.example.demo.model.Personagem;
 import com.example.demo.service.PersonagemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,12 +18,17 @@ public class PersonagemController {
     @Autowired
     PersonagemService personagemService;
 
-    @PostMapping("/")
-    public Personagem criarPersonagem(@RequestBody Personagem personagem){
-        return personagemService.cadastrarPersonagem(personagem);
+    @PostMapping("")
+    public ResponseEntity<Personagem> criarPersonagem(@RequestBody Personagem personagem){
+        try{
+            return new ResponseEntity<>(personagemService.cadastrarPersonagem(personagem), HttpStatus.CREATED);
+        }
+        catch(Exceptions.AtributosMuitoGrandesException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Atributos acima do valor permitido!");
+        }
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<Personagem> listarPersonagens(){
         return personagemService.listarPersonagens();
     }
@@ -40,13 +49,18 @@ public class PersonagemController {
     }
 
     @PatchMapping("/{id}/adicionarItemMagico/{idItemMagico}")
-    public Personagem adicionarItemMagico(@PathVariable(value = "id") int id, @PathVariable(value = "idItemMagico") int idItemMagico){
-        return personagemService.adicionarItemMagico(id, idItemMagico);
+    public ResponseEntity<Personagem> adicionarItemMagico(@PathVariable(value = "id") int id, @PathVariable(value = "idItemMagico") int idItemMagico){
+        try{
+            return new ResponseEntity<>(personagemService.adicionarItemMagico(id, idItemMagico), HttpStatus.OK);
+        }
+        catch(Exceptions.PersonagemJaTemAmuletoException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Personagem Ja Tem Atributo!");
+        }
     }
 
-    @GetMapping("/listarItensMagicos")
-    public List<List<ItemMagico>> listarItensMagicos(){
-        return personagemService.listarItensMagicos();
+    @GetMapping("/{id}/listarItensMagicos")
+    public List<ItemMagico> listarItensMagicos(@PathVariable int id){
+        return personagemService.listarItensMagicos(id);
     }
 
     @PatchMapping("/{id}/deletarItemMagico/{idItemMagico}")

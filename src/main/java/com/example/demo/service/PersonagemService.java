@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.enums.TipoItem;
+import com.example.demo.exception.Exceptions;
 import com.example.demo.model.ItemMagico;
 import com.example.demo.model.Personagem;
 import com.example.demo.repository.PersonagemRepository;
@@ -18,19 +19,19 @@ public class PersonagemService {
     @Autowired
     private ItemMagicoService itemMagicoService;
 
-    public Personagem cadastrarPersonagem(Personagem personagem){
+    public Personagem cadastrarPersonagem(Personagem personagem) throws Exceptions.AtributosMuitoGrandesException {
         if(personagem.getDefesa()+ personagem.getForca()>10){
-            return new Personagem();
+            throw new Exceptions.AtributosMuitoGrandesException();
         }
         return personagemRepository.save(personagem);
     }
 
     public List<Personagem> listarPersonagens(){
-        return personagemRepository.findAll();
+        return personagemRepository.findAll().stream().map(personagem -> personagem.somarAtributosItens()).collect(Collectors.toList());
     }
 
     public Personagem buscarPersonagemPorId(int id){
-        return personagemRepository.findById(id).orElseThrow();
+        return personagemRepository.findById(id).orElseThrow().somarAtributosItens();
     }
 
     public Personagem atualizarNomeAventureiro(int id, String novoNome){
@@ -43,17 +44,20 @@ public class PersonagemService {
         personagemRepository.deleteById(id);
     }
 
-    public Personagem adicionarItemMagico(int id, int idItemMagico){
+    public Personagem adicionarItemMagico(int id, int idItemMagico) throws Exceptions.PersonagemJaTemAmuletoException{
         Personagem personagemSelecionado=buscarPersonagemPorId(id);
         ItemMagico itemMagico=itemMagicoService.buscarItemMagicoPorId(idItemMagico);
 
+        if(itemMagico.getTipoItem()==TipoItem.AMULETO && personagemSelecionado.temAmuleto()){
+            throw new Exceptions.PersonagemJaTemAmuletoException();
+        }
         personagemSelecionado.getItemMagicoList().add(itemMagico);
-        System.out.println(personagemSelecionado.toString());
         return personagemRepository.save(personagemSelecionado);
     }
 
-    public List<List<ItemMagico>> listarItensMagicos(){
-        return listarPersonagens().stream().map(x->x.getItemMagicoList()).collect(Collectors.toList());
+    public List<ItemMagico> listarItensMagicos(int id){
+        Personagem personagemSelecionado=personagemRepository.findById(id).orElseThrow();
+        return personagemSelecionado.getItemMagicoList();
     }
 
     public Personagem removerItemMagico(int id, int idItemMagico){
@@ -62,6 +66,7 @@ public class PersonagemService {
         for(ItemMagico itemMagico : personagemSelecionado.getItemMagicoList()){
             if(itemMagico.getId()==idItemMagico){
                     personagemSelecionado.getItemMagicoList().remove(index);
+                    personagemSelecionado.removerAtributosItens();
                     return personagemRepository.save(personagemSelecionado);
             }
             index++;

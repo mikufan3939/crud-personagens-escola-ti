@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.enums.Classe;
+import com.example.demo.enums.TipoItem;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class Personagem {
 
     private int level;
 
-    @OneToMany(mappedBy = "personagem")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "personagem_id")
     private List<ItemMagico> itemMagicoList;
     private int forca;
 
@@ -101,5 +103,30 @@ public class Personagem {
                 ", forca=" + forca +
                 ", defesa=" + defesa +
                 '}';
+    }
+
+    public Personagem somarAtributosItens(){
+        for(ItemMagico itemMagico : this.itemMagicoList){
+            this.forca=itemMagico.getForca()+this.forca;
+            this.defesa=itemMagico.getDefesa()+this.defesa;
+        }
+        return this;
+    }
+
+    public Personagem removerAtributosItens(){
+        for(ItemMagico itemMagico : this.itemMagicoList){
+            this.forca=this.forca-itemMagico.getForca();
+            this.defesa=this.defesa-itemMagico.getDefesa();
+        }
+        return this;
+    }
+
+    public Boolean temAmuleto(){
+        for(ItemMagico itemMagico : this.itemMagicoList){
+            if(itemMagico.getTipoItem()== TipoItem.AMULETO){
+                return true;
+            }
+        }
+        return false;
     }
 }

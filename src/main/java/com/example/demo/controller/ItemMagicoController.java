@@ -1,9 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.Exceptions;
 import com.example.demo.model.ItemMagico;
 import com.example.demo.service.ItemMagicoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,12 +18,18 @@ public class ItemMagicoController {
     @Autowired
     private ItemMagicoService itemMagicoService;
 
-    @PostMapping("/")
-    public ItemMagico cadastrarItemMagico(@RequestBody ItemMagico itemMagico){
-        return itemMagicoService.cadastrarItemMagico(itemMagico);
+    @PostMapping("")
+    public ResponseEntity<ItemMagico> cadastrarItemMagico(@RequestBody ItemMagico itemMagico){
+        try{
+            return new ResponseEntity<>(itemMagicoService.cadastrarItemMagico(itemMagico), HttpStatus.CREATED);
+        }
+        catch(Exceptions.AtributosMuitoGrandesException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Atributos acima do valor permitido!");
+        }
+
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<ItemMagico> listarItensMagicos(){
         return itemMagicoService.listarItensMagicos();
     }
